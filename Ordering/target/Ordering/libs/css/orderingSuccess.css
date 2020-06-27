@@ -1,0 +1,64 @@
+.box{
+    width:600px;
+    background: white; //白色登陆界面
+    height:500px;
+    padding: 80px 40px;
+    border-radius:10px;
+    position:absolute ;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+h1{
+    margin-left:200px;
+    margin-top: 0px;
+}
+#QR_code{
+    background: white;
+    width: 200px;
+    height: 200px;
+    float: left;
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+#text_place{
+    background: white;
+    color: darkgray;
+    padding-top: 50px;
+    margin-top: 50px;
+    margin-left: 100px;
+    width: 200px;
+    height: 200px;
+    float: left;
+}
+#wechat{
+   text-align: center;
+    height: 40px;
+}
+#wepay{
+    vertical-align:middle;
+}
+#weixin{
+    vertical-align:middle;
+}
+p{
+    margin-top: 20px;
+}
+#btn{
+    margin-top: 340px;
+    margin-left: 280px;
+}
+#finnsh{
+    height: 30px;
+    width: 50px;
+    color: white;
+    background: #e74c3c;
+    border: none;
+    border-radius: 6px;
+    cursor:pointer;
+}
+#finnsh:hover{
+    background: #ecf0f1;
+    color: #2c3e50;
+}

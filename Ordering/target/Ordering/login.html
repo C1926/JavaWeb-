@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="libs/css/login.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" charset="UTF-8"></script>
+    <script>
+        $(function () {
+           $('#button').click(function () {
+                //发送ajax请求，提交表单数据
+               $.ajax({
+                   url:"loginAdmin",
+                   type:"POST",
+                   data:$('#loginForm').serialize(),
+                   success:function (data) {
+                       if (data.flag) {
+                           location.href="manage.html";
+                       }else {
+                            $(".bottom-text").html(data.errorMsg);
+                       }
+                    }
+               });
+            });
+        });
+    </script>
+</head>
+<body>
+<form action="" method="post" class="login-form" id="loginForm" >
+    <h1>登 录</h1>
+    <div class="txtb">
+        <input type="text" name="username">
+        <span data-placeholder="请输入帐号"></span>
+    </div>
+    <div class="txtb">
+        <input type="password" name="password">
+        <span data-placeholder="请输入密码"></span>
+    </div>
+    <input type="button" id="button" class="logbtn" value="登录">
+    <div class="bottom-text" >
+        <!--        Don't have account ? <a href="register.html">Sign Up</a>-->
+    </div>
+
+</form>
+
+
+
+<script type="text/javascript">
+    $(".txtb input").on("focus",function () {
+        $(this).addClass("focus");
+    });
+    $(".txtb input").on("blur",function () {
+        if($(this).val() =="")
+            $(this).removeClass("focus");
+    });
+</script>
+</body>
+</html>

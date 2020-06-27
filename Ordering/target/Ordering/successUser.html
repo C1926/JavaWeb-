@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>操作成功</title>
+    <link rel="stylesheet" href="libs/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"charset="UTF-8"></script>
+    <script type="text/javascript" src="libs/js/includeUser.js"></script>
+    <script>
+        $(function () {
+            var ordering_id=getRequest().ordering_id;
+            var str=""+ordering_id;
+            $('#orderingText').append(str);
+            $('#reminde').click(function () {
+                $.post("OrderingServlet",{"method":"reminde","ordering_id":parseInt(ordering_id)},
+                function (data) {
+                    if (data.flag == true) {
+                        alert("订单已加急，请稍后等待取餐");
+                    } else {
+                        alert(data.errorMsg);
+                    }
+                 })
+            });
+
+
+        });
+        function getRequest() {
+            var url=location.search;
+            var theRequest=new Object();
+            if (url.indexOf("?") != -1) {
+                var str=url.substr(1);
+                strs=str.split("&");
+                for (var i = 0; i <strs.length ; i++) {
+                    theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+        function jump(){
+            var time = document.getElementById("second");
+            // var time=$("#second") 不知道什么问题，跳转数字不变化
+            if(time.innerHTML == 0){
+                location.href="index.html";
+            }else{
+                time.innerHTML = time.innerHTML-1;
+            }
+        }
+        setInterval("jump()",1000);
+    </script>
+    <style>
+        .success{
+            width:600px;
+            background: white; //白色登陆界面
+        height:500px;
+            padding: 80px 40px;
+            border-radius:10px;
+            position:absolute ;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .log{
+            margin: 50px  50px 20px 120px;
+            height: 200px;
+            width: 100px;
+            float: left;
+        }
+        .text{
+            margin: 80px  100px 10px 10px ;
+            width: 100px;
+            height: 50px;
+            float: left;
+        }
+        .contact{
+            display: block;
+            width: 220px;
+            height: 40px;
+            float: right;
+            margin-right: 100px;
+        }
+        .back{
+            margin-right: 250px;
+            margin-top:20px;
+            float: right;
+            font-size: 18px;
+        }
+        .back a:hover{
+            color: #fab1a0;
+        }
+        .back a{
+            color: black;
+        }
+        #reminde{
+            margin-left: 40px;
+            width: 80px;
+            height: 25px;
+            background: #0984e3;
+            border: none;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        #reminde:hover{
+            color: #d63031;
+        }
+    </style>
+
+</head>
+<body>
+<div id="userheader"></div>
+<div class="success">
+    <div class="log">
+        <img src="libs/img/log.png">
+    </div>
+    <div class="text">
+        <p><b>支付成功</b></p>
+        <p style="font-size: 12px;color:darkgray;">
+            <span id="second">10</span>
+            秒后返回首页
+        </p>
+    </div>
+    <div class="contact">
+        <p>订单号</p>
+        <span style="font-size: 14px;color:darkgray;" id="orderingText"></span>
+        <input type="button" id="reminde" value="订单加急">
+    </div>
+    <div class="back">
+        <a href="javascript:history.go(-2);">返回上一页</a>
+    </div>
+
+</div>
+
+</body>
+</html>

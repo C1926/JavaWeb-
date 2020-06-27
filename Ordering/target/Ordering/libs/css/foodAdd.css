@@ -1,0 +1,69 @@
+.foodAdd-form{
+    width: 800px;
+    height: 550px;
+    padding: 0px 50px;
+    margin-top: 70px;
+    margin-bottom: 100px;
+    border-radius:10px;
+    position:absolute ;
+    background-image:linear-gradient(to left,#dfe6e9 ,#dff9fb) ; /*背景渐变色*/
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+h1{
+    margin-left: 350px;
+    margin-top: 50px;
+}
+.textf {
+    width: 251px;
+    height: 35px;
+    border-radius:6px ;
+    border: 1px solid gray;
+}
+#food_name{
+    background: url("../img/food.png") no-repeat 5%;
+    text-align: center;
+}
+#food_price{
+    background: url("../img/money.png") no-repeat 5%;
+    text-align: center;
+}
+#food_intro{
+    background: url("../img/intro.png") no-repeat 5%;
+    text-align: center;
+}
+td{
+    width: 150px;
+    height: 80px;
+}
+#tg_name{
+    width: 300px;
+}
+label{
+    color: #74b9ff;
+    font-weight: bold;
+}
+table{
+    margin-top: 50px;
+    margin-left: 200px;
+}
+#food_sub{
+    width: 150px;
+    height: 50px;
+    margin-top: 50px;
+    margin-left: 320px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    background: #ffeaa7;
+}
+#food_sub:hover{
+    background: #f1f1f1;
+}
+#tipsName {
+    color: red;
+    float: right;
+    text-align: center;
+    margin-top: 8px;
+}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>菜品管理</title>
+    <link rel="stylesheet" href="libs/css/style.css">
+    <link rel="stylesheet" href="libs/css/foodmanage.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"charset="UTF-8"></script>
+    <script src="libs/js/includeAdmin.js"></script>
+    <script>
+        /**
+         *  查看所有菜品
+         */
+        $(function () {
+            $.post("FoodServlet",{'method':'query'},function (data) {
+                showData(data);
+                $("tr:gt(0):odd").css("backgroundColor","#ecf0f1");
+                $("tr:gt(0):even").css("backgroundColor","white");
+            },"json")
+        });
+        function showData(data) {
+            var str="";
+            var str_id="      <tr>\n" +
+                "            <td>\n" +
+                "                <input type=\"checkbox\">\n" +
+                "            </td>\n" +
+                "            <td  id=\"f_id\">";
+        //   后接food_id号
+            var str_name="</td>\n" +
+                "            <td id=\"f_name\">"
+        //    后接food_name
+            var str_price="</td>\n" +
+                "            <td id=\"f_pri\">";
+        //    后接food_price
+            var str_intro="</td>\n" +
+                "            <td id=\"f_int\">"
+        //    后接food_introduction
+            var str_op="</td>\n" +
+                "                <td>\n" +
+                "                    <img src=\"libs/img/write.png\"  id=\"png_wr\">\n" +
+                "                    <input type=\"button\" class=\"a_op\" id=\"a_alter\" value=\"编辑\">\n" +
+                "                </td>\n" +
+                "                <td>\n" +
+                "                    <input type=\"image\"  src=\"libs/img/del.png\" class=\"a_op\" id=\"a_remove\">\n" +
+                "                </td>\n" +
+                "            </tr>";
+            for (var i = 0; i < data.length; i++) {
+                str = str_id+data[i].food_id+str_name+data[i].food_name+
+                    str_price+data[i].food_price+str_intro+data[i].food_introduction+str_op;
+                $("#manage_table").append(str);
+            }
+        }
+        /**
+         * 删除菜品 交互后端 MoreFoodServlet
+         */
+        $(function () {
+                $("#manage_table").on("click","#a_remove",function () {
+                    if (confirm("确定删除该菜品吗？")) {
+                        var $tr=$(this).parent().parent();
+                        var tds=$($tr).find('td');
+                        var str=$(tds[1]).text();
+                        var method="del";
+                        $.post("FoodServlet", {'food_id':str,'method':method},
+                            function (data) {
+                                if (data.flag) {
+                                    $($tr).remove();
+                                    location.href="foodmanage.html";
+                                } else {
+                                    alert("删除失败，该菜品存在顾客的订单中,请联系管理进行下架");
+                                }
+                            },"json");
+                    }
+                })
+            });
+        /**
+         * 添加菜品
+         */
+        $(function () {
+            $('#addfood').click(function () {
+                location.href="foodAdd.html";
+            })
+        })
+        /**
+         *  全选 控制器
+         */
+        $(function () {
+            $(".table_name").on("click", "#checkall", function () {
+                // 其他框列表，排除全选框
+                var $otherCheckList = $("#manage_table input:checkbox:not('checkall')");
+                //取得全选框当前的选中状态
+                var checkAllState = $("#checkall").prop("checked");
+                //其他的框状态=全选框的状态
+                $otherCheckList.prop("checked", checkAllState);
+            });
+        });
+
+        /**
+         * 编辑 修改菜品信息
+         */
+        $(function () {
+            var td;
+            $('#manage_table').on('click','#a_alter',function () {
+               td=$(this).parent();
+               var tdBro=td.siblings();
+                if (tdBro[2].children.length == 0) {
+                    tdBro[2].innerHTML=" <input type=\"text\" id=\"a_name\" value='"+tdBro[2].innerText+"'>";
+                }
+                if (tdBro[3].children.length == 0) {
+                    tdBro[3].innerHTML=" <input type=\"text\" id=\"a_price\" value='"+tdBro[3].innerText+"'  " +
+                        "onkeyup=\"value=value.replace(/[^\\d.]/g,'')\"\n" +
+                        "onafterpaste=\"this.value=this.value.replace(/\\D/g,'')\"\n" +
+                        "maxlength=\"5\" size=\"14\" >"
+                }
+                if (tdBro[4].children.length == 0) {
+                    tdBro[4].innerHTML=" <input type=\"text\" id=\"a_intr\" value='"+tdBro[4].innerText+"'>"
+                }
+                td[0].innerHTML="  <input type=\"button\" class=\"a_op\" id=\"a_save\" value=\"保存\">" +
+                    "  <input type=\"button\" class=\"a_op\" id=\"a_resert\"  value=\"取消\">"
+            })
+        });
+        $(function () {
+            $('#manage_table').on('click','#a_save',function () {
+                var tr=$(this).parent().parent();
+                var id=$(tr).children("td:eq(1)").text();
+                var name=$(tr).children("td:eq(2)").children("input").val();
+                var price=$(tr).children("td:eq(3)").children("input").val();
+                var intro=$(tr).children("td:eq(4)").children("input").val();
+                $.post("FoodServlet",{"method":'alter',"food_id":id,"food_name":name,"food_price":price,"food_intro":intro},
+                    function (data) {
+                        if (data.flag) {
+                            location.href="foodmanage.html"
+                        }
+                        else{
+                            alert("错误！")
+                        }
+                    },"json");
+            })
+        });
+        $(function () {
+            $('#manage_table').on('click','#a_resert',function (){
+                location.href="foodmanage.html";
+            });
+        });
+
+    </script>
+
+</head>
+<body>
+<div id="header"></div>
+<div class="box">
+    <div class="mfood_box">
+        <h1>菜品管理</h1>
+        <div class="btn_box">
+            <input type="button" class="btn" id="addfood" value="+ 添加菜品">
+            <input type="button" class="btn" id="lookfood" value="查看菜品图">
+        </div>
+        <table id="manage_table">
+            <th class="table_name" id="sel">
+                <input type="checkbox" id="checkall">  全选
+            </th>
+            <th class="table_name" id="th_id">ID</th>
+            <th class="table_name">菜品名称</th>
+            <th class="table_name" id="th_price">价格</th>
+            <th class="table_name">图片描述</th>
+            <th class="table_name" id="operation">修改信息</th>
+            <th class="table_name" id="op_remove">删除</th>
+
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

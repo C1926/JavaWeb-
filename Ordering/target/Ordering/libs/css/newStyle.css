@@ -1,0 +1,89 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none ;
+    font-family: montserrat;
+}
+body{
+    min-height: 100px;
+    background-image:linear-gradient(to right,#55efc4 ,#a29bfe) ; /*渐变色*/
+}
+.alter-form{
+    width:400px;
+    /*background:#ff6b81; //界面控制框*/
+    height:360px;
+    padding: 50px 40px;
+    border-radius:10px;
+    position:absolute ;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.alter-form h1{
+    text-align: center;
+    color: #f1f1f1;
+    margin-bottom: 60px;
+}
+.txtb{
+    border-bottom: 1px solid #b2bec3;
+    position: relative;
+    margin: 30px 0; /*设置边框之间的距离*/
+}
+.txtb input{
+    font-size: 15px;
+    background: none;
+    border:none;
+    outline: none;
+    height: 50px;
+    width: 100%;
+    padding: 0 5px;
+}
+/*伪元素选择器 */
+.txtb span::before{
+    content:attr(data-placeholder);
+    position: absolute;
+    top:50%;
+    left: 5px;
+    color: #f1f1f1;
+    transform: translateY(-50%);
+    z-index: -1;
+    transition: .5s;
+}
+.txtb span::after{
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background:linear-gradient(to right,#f1f1f1 ,#a4b0be) ; /*渐变色*/
+    transition:.5s;
+}
+.focus + span::before{
+    top:-5px; /*聚焦后 span上移 -5px*/
+}
+.focus + span::after{
+    width: 100%;    /*聚焦后 span的线条颜色改变100%*/
+}
+.altbtn {
+    display: block;
+    width:100%;
+    height: 50px;
+    border: none;
+    margin-top: 50px;
+    background:linear-gradient(to right,#dfe4ea,#a4b0be); /*从左到右按顺序颜色渐变*/
+    background-size: 200%;
+    outline: none;
+    cursor: pointer;
+    transition: .5s;
+}
+.altbtn:hover{
+    background-position:right; /*位置定位到右边，在该例中即颜色对应右侧*/
+}
+.bottom-text {
+    margin-top:60px ;
+    text-align: center;
+    font-size: 13px;
+    color: #a94442;
+}
+a:hover{
+    color: #a29bfe;
+}

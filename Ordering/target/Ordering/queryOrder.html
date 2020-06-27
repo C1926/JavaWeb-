@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单信息</title>
+    <link rel="stylesheet" href="libs/css/style.css">
+    <link rel="stylesheet" href="libs/css/queryOrder.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"charset="UTF-8"></script>
+    <script src="libs/js/includeUser.js"></script>
+    <script>
+        $(function () {
+            $('#btn_dy').click(function () {
+                alert("订单信息已打印，请尽快完成该订单");
+            });
+            var ordering_id=getRequest().ordering_id;
+            $.post("OrderingServlet",{"method":"find","ordering_id":parseInt(ordering_id)},function (data) {
+                    showOrderingMsg(data);
+                },"json");
+        });
+        function  showOrderingMsg(data) {
+            //后接菜品描述
+            var str_foodInt="                <div class=\"img_place\">\n" +
+                "                    <img src=\"libs/img/";
+            //后接菜品名
+            var str_foodName="\" width=\"100px\" height=\"100px\">\n" +
+                "                </div>\n" +
+                "                <div class=\"food_place\">\n" +
+                "                    <p class=\"food_name\">";
+            //后接菜品数目
+            var str_foodNum="</p>\n" +
+                "                    <p class=\"food_num\">×";
+            //后接菜品价格
+            var str_foodPrice='</p>\n' +
+                '                </div>\n' +
+                '                <div class="price_msg">\n' +
+                '                    <p class="food_price">￥';
+            //End
+            var end="</p>\n" +
+                "                </div>\n" +
+                "            </li>";
+            //后接总价格
+            var total="<span id=\"food_total\">";
+            //
+            var total_end="</span>";
+            var str="";
+            $('#ordering_id').html("订单编号"+data[0].ordering_id);
+            $('#food_total').text("￥"+data[0].total)
+            for (var i = 0; i <data.length ; i++) {
+                str=str_foodInt+data[i].food_introduction+str_foodName+data[i].food_name+str_foodNum+data[i].food_num+
+                    str_foodPrice+ data[i].food_price+end;
+                $('#orderingMsg').append(str);
+            }
+
+        }
+        function getRequest() {
+            var url=location.search;
+            var theRequest=new Object();
+            if (url.indexOf("?") != -1) {
+                var str=url.substr(1);
+                strs=str.split("&");
+                for (var i = 0; i <strs.length ; i++) {
+                    theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+    </script>
+</head>
+<body>
+<div id="userheader"></div>
+<div class="box">
+    <div class="ordering_box">
+        <div id="orderingID_place">
+            <p id="ordering_id"></p>
+        </div>
+        <HR align=center width=90% color=#ecf0f1 SIZE=1>
+        <ul id="orderingMsg">
+<!--            <li class="ordering_item">-->
+<!--                <div class="img_place">-->
+<!--                    <img src="libs/img/weixin.png" width="100px" height="100px">-->
+<!--                </div>-->
+<!--                <div class="food_place">-->
+<!--                    <p class="food_name">你的吗</p>-->
+<!--                    <p class="food_num">×2</p>-->
+<!--                </div>-->
+<!--                <div class="price_msg">-->
+<!--                    <p class="food_price">￥12.5</p>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--            <li class="ordering_item">-->
+<!--                <div class="img_place">-->
+<!--                    <img src="libs/img/weixin.png" width="100px" height="100px">-->
+<!--                </div>-->
+<!--                <div class="food_place">-->
+<!--                    <p class="food_name">你的吗</p>-->
+<!--                    <p class="food_num">×2</p>-->
+<!--                </div>-->
+<!--                <div class="price_msg">-->
+<!--                    <p class="food_price">￥12.5</p>-->
+<!--                </div>-->
+<!--            </li>-->
+        </ul>
+        <HR align=center width=90% color=#ecf0f1 SIZE=1>
+        <div class="total_place">
+            <input type="button" value="打印" id="btn_dy">
+            <span id="total_hj">合计</span>
+            <span id="food_total"></span>
+        </div>
+        <div class="back">
+            <a href="javascript:history.go(-1);">返回</a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

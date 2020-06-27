@@ -1,0 +1,181 @@
+#box{
+    width: 1000px;
+    max-height:2000px;
+    height: auto;
+    margin:150px 20px;
+    margin-top: 400px;
+    padding-bottom: 100px;
+    border-radius:10px;
+    position:absolute;
+    background: white;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+#survey{
+    background: white;
+    width: 1000px;
+    margin-top: 40px;
+    height: auto;
+    border-radius:10px;
+    max-height: 1500px;
+    padding-bottom: 50px;
+}
+#h1Name{
+    position: relative;
+    color: #2aabd2;
+}
+#h1Text{
+    text-align: center;
+    font-size: 24px !important;
+    height: 80px;
+}
+.food{
+    background: white;
+    width: 800px;
+    height: auto;
+    max-height: 1000px;
+    overflow-y:auto;
+    overflow-x: hidden;
+    margin-left:120px;
+}
+
+.errorMsg{
+    color: red;
+    text-align: center;
+    height: 20px;
+}
+.food_item{
+    background: white;
+    width: 200px;
+    height: 250px;
+    display:inline-block;
+    margin:10px 20px;
+    border: 1px solid gray;
+    position:relative ;
+}
+.food_ordering{
+    list-style-type: none;
+}
+.img_place{
+    width: 200px;
+    height: 150px;
+    background: white;
+    text-align: center;
+}
+.food_name{
+    text-align: center;
+    font-weight: bold;
+}
+.food_price{
+    color: #FF6A00;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: normal;
+    height: 10px;
+    position: absolute;
+    bottom: 44px;
+    right: 10px;
+}
+.operation{
+    display: inline-block;
+    height: 24px;
+    width: 30px;
+    border: 1px solid #E8E8E8;
+    line-height: 24px;
+    text-align: center;
+    background: #f1f1f1;
+    padding: 0;
+    position:relative;
+    bottom: -18px;
+    left: 10px;
+    cursor: pointer;
+    vertical-align: top;
+    float: left;
+}
+.itemnum{
+    background: white;
+    border-radius: 0;
+    border: 1px solid #e8e8e8;
+    width: 40px;
+    text-align: center;
+}
+.add{
+    border-radius: 0 2px 2px 0;
+}
+.btn_end{
+    width: 750px;
+    height: auto;
+    margin-top: 50px;
+}
+.submitbutton{
+    display: inline-block;
+    cursor: pointer;
+    height: 32px;
+    width: 100px;
+    text-align: center;
+    border: 1px solid transparent;
+    margin: 0px 420px;
+    background:#55efc4;
+}
+.submitbutton:hover{
+    background: #a29bfe;
+}
+#total{
+    font-size: 16px;
+    color: #262626;
+    padding-top: 100px;
+    width: 100%;
+    text-align: right;
+}
+#sum_money {
+    color:#FF5634;
+}
+#orderingMsg{
+    width: 800px;
+    height: auto;
+    border:1px solid #b2bec3;
+    margin-left: 120px;
+    margin-top: 50px;
+    display: none;
+}
+h5{
+    margin: 10px 10px;
+}
+#orderingTable{
+    margin: 20px 10px;
+}
+#td_name{
+    width: 600px;
+    font-weight: bold;
+    color: #636e72;
+    font-size: 12px;
+}
+#td_num{
+    width: 100px;
+    color: #636e72;
+    font-size: 12px;
+}
+#td_price{
+    color: #636e72;
+    font-size: 12px;
+}
+#end_ordering{
+    margin-top: 20px;
+}
+#num_div{
+    height: 50px;
+    width: 0px;
+    float: left;
+    font-weight: bold;
+    margin-left: 600px;
+    text-align: center;
+}
+#price_div{
+    color: #FF5634;
+    height: 50px;
+    width: 0px;
+    font-weight: bold;
+    margin-left: 700px;
+    text-align: center;
+}

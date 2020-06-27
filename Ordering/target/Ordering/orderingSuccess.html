@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>下单成功</title>
+    <link rel="stylesheet" href="libs/css/style.css">
+    <link rel="stylesheet" href="libs/css/orderingSuccess.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"charset="UTF-8"></script>
+    <script>
+        $(function () {
+            var ordering_id=getRequest().ordering_id;
+            var total=getRequest().total;
+            var str_id="订单号："+ordering_id;
+            var str_total="订单金额："+total;
+            $('#text_orderingId').append(str_id);
+            $('#text_orderingTotal').append(str_total);
+            $('#finnsh').click(function () {
+                $.post("OrderingServlet",{"method":"payend","ordering_id":parseInt(ordering_id)},
+                function (data) {
+                    if (data.flag == true) {
+                        location.href="successUser.html?ordering_id="+ordering_id;
+                    } else{
+                        alert(data.errorMsg);
+                    }
+                });
+
+            })
+        });
+        function getRequest() {
+            var url=location.search;
+            var theRequest=new Object();
+            if (url.indexOf("?") != -1) {
+                var str=url.substr(1);
+                strs=str.split("&");
+                for (var i = 0; i <strs.length ; i++) {
+                    theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+    </script>
+</head>
+<body>
+<div class="box">
+    <h1>请扫码支付订单</h1>
+    <div id="QR_code">
+        <img src="libs/img/code.jpg" width="200px" height="200px">
+        <div id="wechat" >
+            <img src="libs/img/微信支付.png" width="32px" height="32px" id="wepay">
+            <span id="weixin">微信支付</span>
+        </div>
+
+    </div>
+    <div id="text_place">
+        <p id="text_orderingId"></p>
+        <p id="text_orderingTotal"></p>
+    </div>
+    <div id="btn">
+       <input type="button" id="finnsh" value="完成">
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+com\swx\domain\Food.class
+com\swx\service\impl\AdminServiceImpl.class
+com\swx\service\AdminService.class
+com\swx\untils\JDBCUtils.class
+com\swx\domain\ResultInfo.class
+com\swx\domain\Admin.class
+com\swx\servlet\LoginServlet.class
+com\swx\dao\AdminDao.class

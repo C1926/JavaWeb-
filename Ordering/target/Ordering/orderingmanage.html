@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单信息</title>
+    <link rel="stylesheet" href="libs/css/style.css">
+    <link rel="stylesheet" href="libs/css/orderingmanage.css">
+    <link href="libs/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"charset="UTF-8"></script>
+    <script type="text/javascript" src="libs/js/includeAdmin.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。-->
+    <script src="libs/js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $.post("OrderingServlet",{"method":"queryOrdering"},function (data) {
+                showOrdering(data);
+                $("tr:gt(0):odd").css("backgroundColor","#ecf0f1");
+                $("tr:gt(0):even").css("backgroundColor","white");
+            },"json")
+            $('#manage_table').on('click', ".look_ordering", function () {
+                var $tr=$(this).parent().parent();
+                var tds=$($tr).find('td');
+                var ordering_id=$(tds[0]).text();
+                location.href="queryOrder.html?ordering_id="+ordering_id;
+            });
+        });
+            function showOrdering(data) {
+                var str="";
+                //后接订单编号
+                var str_id="  <tr>\n" +
+                    "                <td class=\"td_oredering_id\">";
+                //后接订单时间
+                var str_time="</td>\n" +
+                    "                <td class=\"td_oredering_time\">";
+                //后接支付场景 --》目前没有其他支付方式 默认为wechat
+                var str_place="</td>\n" +
+                    "                <td class=\"td_oredering_place\">";
+                //后接交易金额
+                var str_total="</td>\n" +
+                    "                <td class=\"td_oredering_total\">";
+                //后接交易状态--》为true则为加急
+                var str_status="</td>\n" +
+                    "                <td class=\"td_oredering_status\">";
+                var status="";
+                //后接操作属性
+                var str_operation="</td>\n" +
+                    "                <td class=\"td_oredering_operation\">\n" +
+                    "                    <a  class='look_ordering'>查看</a>\n" +
+                    "                </td>\n" +
+                    "            </tr>";
+                for (var i = 0; i <data.length ; i++) {
+                    if (data[i].ordering_status == true) {
+                        status = "订单加急";
+                    } else {
+                        status=" ";
+                    }
+                    str=str_id+data[i].ordering_id+str_time+data[i].ordering_time+str_place+"微信支付"+
+                            str_total+data[i].total+str_status+status+str_operation;
+                    $('#manage_table').append(str);
+                }
+            }
+    </script>
+</head>
+<body>
+<div id="header"></div>
+<div class="box">
+    <div class="ordering_box">
+        <h1 id="msg">订单信息</h1>
+        <div class="btn_box">
+            <input type="type" id="search" placeholder="请输入订单编号">
+            <input type="button" id="search_btn" value="搜索">
+        </div>
+        <table id="manage_table">
+            <th class="table_name" id="th_id">订单编号</th>
+            <th class="table_name">交易时间</th>
+            <th class="table_name" id="th_place">支付场景</th>
+            <th class="table_name">订单金额</th>
+            <th class="table_name">订单状态</th>
+            <th class="table_name" id="op_remove">操作</th>
+        </table>
+    </div>
+</div>
+
+
+</body>
+</html>

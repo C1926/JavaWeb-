@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加菜品</title>
+    <link rel="stylesheet" href="libs/css/style.css">
+    <link rel="stylesheet" href="libs/css/foodAdd.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" charset="UTF-8"></script>
+    <script src="libs/js/includeAdmin.js" charset="UTF-8"></script>
+    <script>
+        $(function () {
+            $('#food_sub').click(function () {
+                var name=$('#food_name').val();
+                var price=$('#food_price').val();
+                var intro=$('#food_intro').val();
+                $.post("FoodServlet",{'method':"add",'food_name':name,'food_price':price,'food_intro':intro},
+                    function (data) {
+                    if (data.flag) {
+                        location.href="success.html";
+                    }else {
+                        $('#tipsName').html(data.errorMsg)
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+<div id="header"></div>
+
+    <form action="" method="post" class="foodAdd-form" >
+        <h1> 添加菜品</h1>
+        <table>
+            <tr>
+                <td>
+                    <label for="food_name">菜品名</label>
+                </td>
+                <td id="tg_name">
+                    <input  type="text" class="textf" id="food_name" placeholder="请输入菜品名">
+                    <span id="tipsName" class="error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="food_price">菜品价格</label>
+                </td>
+                <td>
+                    <input  type="text" class="textf" id="food_price" placeholder="请输入菜品价格"
+                    onkeyup="value=value.replace(/[^\d.]/g,'')"
+                    onafterpaste="this.value=this.value.replace(/\D/g,'')"
+                    maxlength="5" size="14" >
+                <!--   设置只能输入正数-->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="food_intro">菜品图片名称</label>
+                </td>
+                <td>
+                    <input  type="text" class="textf" id="food_intro" placeholder="请输入菜品图片名称">
+                </td>
+            </tr>
+        </table>
+        <div class="food_btn">
+            <input type="button" class="subm" id="food_sub" value="确定">
+        </div>
+    </form>
+
+</body>
+</html>

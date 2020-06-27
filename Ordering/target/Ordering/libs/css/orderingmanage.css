@@ -1,0 +1,78 @@
+.box{
+    width: 1000px;
+    height: auto;
+    max-height: 1500px;
+    margin-top: 200px;
+    overflow-y:auto;
+    margin-bottom: 50px;
+    border-radius:10px;
+    position:absolute ;
+    background: white;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.ordering_box{
+    width: 1000px;
+    height: auto;
+    max-height:1000px;
+    overflow-y:auto;
+    border-radius:10px;
+    background: white;
+    margin-bottom: 80px;
+}
+#manage_table{
+    border: 1px solid;
+    border-collapse: collapse;
+    padding: 0;
+    width: 80%;
+    margin-top: 10px;
+    margin-left: 100px;
+    white-space: nowrap;
+}
+.btn_box{
+    margin-left: 680px;
+    margin-top: 50px;
+}
+.table_name{
+    text-align: center;
+    border: 1px solid;
+}
+th{
+    color: #f1f1f1;
+    background:#74b9ff ;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 60px;
+}
+#msg{
+    margin-top: 20px;
+    margin-left:420px;
+}
+tr{
+    height: 50px;
+}
+td{
+    text-align: center;
+    border: 1px solid #636e72;
+}
+.td_oredering_status {
+ color: #FF5634;
+}
+#search{
+    background: url("../img/serach.png") no-repeat 5%;
+    text-align: center;
+    border: 1px solid;
+    border-radius: 6px;
+}
+#search_btn{
+    background: #2aabd2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    height: 25px;
+    width: 40px;
+}
+.look_ordering {
+    cursor: pointer;
+}
